@@ -49,18 +49,16 @@ A production-ready JavaScript library for alerts, toasts, confirmations, prompts
 - **4 Animations** — `scale`, `fade`, `slide`, `flip` — all CSS-driven.
 - **Dark Mode** — Built-in `light`, `dark`, `auto` (follows OS preference).
 - **Accessibility A11y** — Focus trap, keyboard navigation (Tab/Esc), ARIA attributes, `prefers-reduced-motion`.
-- **TypeScript** — Full type declarations included.
-- **WordPress-Safe** — Isolated CSS prefix, zero conflicts with WP Admin or themes.
+### Comparison
 
-### Size Comparison
-
-| Feature | 👑 RoyalAlert | 🍬 SweetAlert2 |
-|---|---|---|
-| **Total Gzipped Size** | **~ 8.8 kB** | ~ 21.0 kB |
-| **Theme Support** | Built-in (Auto/Dark/Light) | Separate CSS file required |
-| **Customisation** | CSS Variables (`--ra-*`) | SCSS / External CSS |
-| **Toast & Async** | Built-in | Built-in |
-| **Dependencies** | Zero | Zero |
+| Feature | 👑 RoyalAlert | 🍬 SweetAlert2 | 🍞 Toastify JS | 🖥️ Native JS |
+|---|---|---|---|---|
+| **Gzipped Size** | **~ 8.8 kB** | ~ 21.0 kB | ~ 3.0 kB | 0 kB |
+| **Capabilities** | Alerts, Toasts, Confirms, Prompts, Async | Alerts, Toasts, Confirms, Prompts, Async | Toasts ONLY | Basic Alerts/Confirms |
+| **Theme Support** | **Built-in** (Auto/Dark/Light) | Separate CSS file | Manual CSS | None |
+| **Customisation** | **CSS Variables** (`--ra-*`) | SCSS / External CSS | Basic CSS | None |
+| **Blocks UI?** | No | No | No | **Yes** |
+| **Dependencies** | Zero | Zero | Zero | Zero |
 
 ---
 
