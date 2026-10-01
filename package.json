@@ -45,7 +45,7 @@
   "homepage": "https://www.royaltechbd.com/",
   "repository": {
     "type": "git",
-    "url": "https://github.com/mehdi/royal-alert.git"
+    "url": "https://github.com/Royal-Technologies/RoyalAlert.git"
   },
   "devDependencies": {
     "jsdom": "^23.0.0",
