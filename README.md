@@ -52,6 +52,9 @@ A production-ready JavaScript library for alerts, toasts, confirmations, prompts
 - **TypeScript** — Full type declarations included.
 - **WordPress-Safe** — Isolated CSS prefix, zero conflicts with WP Admin or themes.
 
+### Size Comparison
+![RoyalAlert vs SweetAlert2 Size Comparison](assets/size-comparison.jpg)
+
 ---
 
 ## 📦 Installation
