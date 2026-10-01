@@ -52,13 +52,15 @@ A production-ready JavaScript library for alerts, toasts, confirmations, prompts
 ### Comparison
 
 | Feature | 👑 RoyalAlert | 🍬 SweetAlert2 | 🍞 Toastify JS | 🖥️ Native JS |
-|---|---|---|---|---|
+| :--- | :---: | :---: | :---: | :---: |
 | **Gzipped Size** | **~ 8.8 kB** | ~ 21.0 kB | ~ 3.0 kB | 0 kB |
-| **Capabilities** | Alerts, Toasts, Confirms, Prompts, Async | Alerts, Toasts, Confirms, Prompts, Async | Toasts ONLY | Basic Alerts/Confirms |
-| **Theme Support** | **Built-in** (Auto/Dark/Light) | Separate CSS file | Manual CSS | None |
-| **Customisation** | **CSS Variables** (`--ra-*`) | SCSS / External CSS | Basic CSS | None |
+| **Alerts & Modals** | ✅ | ✅ | ❌ | ✅ (Basic) |
+| **Toasts** | ✅ | ✅ | ✅ | ❌ |
+| **Confirmations** | ✅ | ✅ | ❌ | ✅ (Basic) |
+| **Input Prompts** | ✅ | ✅ | ❌ | ✅ (Basic) |
+| **Async / Loading** | ✅ | ✅ | ❌ | ❌ |
+| **Theme Support** | ✅ (Built-in) | ❌ (Separate CSS) | ❌ (Manual) | ❌ |
 | **Blocks UI?** | No | No | No | **Yes** |
-| **Dependencies** | Zero | Zero | Zero | Zero |
 
 ---
 
