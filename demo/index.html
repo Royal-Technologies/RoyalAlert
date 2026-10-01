@@ -1,0 +1,1069 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="RoyalAlert — Lightweight, modern, zero-dependency JavaScript alert, toast, modal and confirmation library.">
+<title>RoyalAlert — Lightweight. Modern. Zero Dependency.</title>
+<link rel="icon" type="image/png" href="../assets/royalalert.png">
+
+<!-- RoyalAlert CSS -->
+<link rel="stylesheet" href="../styles/variables.css">
+<link rel="stylesheet" href="../styles/base.css">
+<link rel="stylesheet" href="../styles/modal.css">
+<link rel="stylesheet" href="../styles/toast.css">
+<link rel="stylesheet" href="../styles/buttons.css">
+<link rel="stylesheet" href="../styles/animations.css">
+<link rel="stylesheet" href="../styles/themes.css">
+
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+    --c-bg:       #f8faff;
+    --c-card:     #ffffff;
+    --c-text:     #1e293b;
+    --c-muted:    #64748b;
+    --c-border:   #e2e8f0;
+    --c-primary:  #6366f1;
+    --c-code-bg:  #0f172a;
+    --nav-h:      64px;
+}
+body.dark {
+    --c-bg:     #0f172a;
+    --c-card:   #1e293b;
+    --c-text:   #f1f5f9;
+    --c-muted:  #94a3b8;
+    --c-border: #334155;
+}
+
+/* ── Scrollbar ──────────────────────────────────────────── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
+body.dark ::-webkit-scrollbar-thumb { background: #334155; }
+
+/* ── Base ───────────────────────────────────────────────── */
+html { scroll-behavior: smooth; }
+body {
+    font-family: system-ui, -apple-system, 'Segoe UI', sans-serif;
+    background: var(--c-bg);
+    color: var(--c-text);
+    transition: background .3s, color .3s;
+    line-height: 1.6;
+}
+
+/* ── Navbar ─────────────────────────────────────────────── */
+.navbar {
+    position: sticky;
+    top: 0;
+    z-index: 200;
+    height: var(--nav-h);
+    background: rgba(255,255,255,.88);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--c-border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 2rem;
+    transition: background .3s, border-color .3s;
+}
+body.dark .navbar {
+    background: rgba(15,23,42,.88);
+}
+.nav-logo {
+    font-size: 1.35rem;
+    font-weight: 800;
+    color: var(--c-primary);
+    text-decoration: none;
+    letter-spacing: -.03em;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+}
+.nav-logo img {
+    height: 32px;
+    width: auto;
+    object-fit: contain;
+    border-radius: 4px;
+}
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    list-style: none;
+}
+.nav-links a {
+    color: var(--c-muted);
+    text-decoration: none;
+    font-size: .9rem;
+    font-weight: 500;
+    transition: color .15s;
+}
+.nav-links a:hover { color: var(--c-primary); }
+.nav-right { display: flex; align-items: center; gap: .75rem; }
+.btn-theme {
+    border: 1.5px solid var(--c-border);
+    background: transparent;
+    color: var(--c-text);
+    padding: .4rem .85rem;
+    border-radius: 9999px;
+    font-size: .85rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all .2s;
+}
+.btn-theme:hover { border-color: var(--c-primary); color: var(--c-primary); }
+.btn-npm {
+    background: #cb0000;
+    color: #fff;
+    border: none;
+    padding: .4rem .85rem;
+    border-radius: 9999px;
+    font-size: .85rem;
+    font-weight: 700;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: .3rem;
+}
+
+/* ── Hero ───────────────────────────────────────────────── */
+.hero {
+    background: linear-gradient(135deg, #4f46e5 0%, #6366f1 45%, #7c3aed 100%);
+    color: #fff;
+    text-align: center;
+    padding: 6rem 1.5rem 5rem;
+    position: relative;
+    overflow: hidden;
+}
+.hero::before {
+    content: '';
+    position: absolute;
+    inset: -30%;
+    background: radial-gradient(ellipse at 65% 35%, rgba(255,255,255,.1) 0%, transparent 65%);
+    pointer-events: none;
+}
+.hero-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: .4rem;
+    background: rgba(255,255,255,.15);
+    border: 1px solid rgba(255,255,255,.25);
+    padding: .35rem 1rem;
+    border-radius: 9999px;
+    font-size: .85rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    backdrop-filter: blur(4px);
+}
+.hero h1 {
+    font-size: clamp(3rem, 8vw, 5.5rem);
+    font-weight: 900;
+    letter-spacing: -.05em;
+    margin-bottom: 1rem;
+    line-height: 1.05;
+}
+.hero-sub {
+    font-size: clamp(1rem, 2.5vw, 1.3rem);
+    opacity: .85;
+    margin-bottom: 2.5rem;
+    max-width: 520px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.hero-badges {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: .6rem;
+    margin-bottom: 3rem;
+}
+.badge {
+    background: rgba(255,255,255,.18);
+    border: 1px solid rgba(255,255,255,.28);
+    padding: .3rem .8rem;
+    border-radius: 9999px;
+    font-size: .8rem;
+    font-weight: 600;
+    backdrop-filter: blur(4px);
+}
+.hero-actions { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+.btn-hero-primary {
+    background: #fff;
+    color: #4f46e5;
+    border: none;
+    padding: .85rem 2rem;
+    border-radius: 9999px;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: transform .2s, box-shadow .2s;
+    box-shadow: 0 8px 24px rgba(0,0,0,.2);
+}
+.btn-hero-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 32px rgba(0,0,0,.25); }
+.btn-hero-ghost {
+    background: rgba(255,255,255,.15);
+    color: #fff;
+    border: 1.5px solid rgba(255,255,255,.4);
+    padding: .85rem 2rem;
+    border-radius: 9999px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background .2s;
+    text-decoration: none;
+    display: inline-block;
+}
+.btn-hero-ghost:hover { background: rgba(255,255,255,.25); }
+
+/* ── Install strip ───────────────────────────────────────── */
+.install-strip {
+    background: var(--c-code-bg);
+    color: #e2e8f0;
+    text-align: center;
+    padding: 2.5rem 1.5rem;
+}
+.install-tabs { display: flex; justify-content: center; gap: .5rem; margin-bottom: 1.25rem; }
+.itab {
+    padding: .4rem 1rem;
+    border-radius: 9999px;
+    border: 1.5px solid #334155;
+    background: transparent;
+    color: #94a3b8;
+    font-size: .85rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all .2s;
+}
+.itab.active { background: #6366f1; border-color: #6366f1; color: #fff; }
+.install-code {
+    display: none;
+    background: #1e293b;
+    border: 1px solid #334155;
+    border-radius: 12px;
+    padding: 1.1rem 1.5rem;
+    font-family: 'Fira Code', monospace;
+    font-size: .95rem;
+    color: #7dd3fc;
+    max-width: 620px;
+    margin: 0 auto;
+    text-align: left;
+    position: relative;
+}
+.install-code.active { display: block; }
+.copy-btn {
+    position: absolute;
+    top: .6rem;
+    right: .75rem;
+    background: #334155;
+    color: #94a3b8;
+    border: none;
+    padding: .25rem .6rem;
+    border-radius: 6px;
+    font-size: .75rem;
+    cursor: pointer;
+    transition: background .2s;
+}
+.copy-btn:hover { background: #475569; color: #fff; }
+
+/* ── Sections ────────────────────────────────────────────── */
+.section { padding: 4rem 1.5rem; max-width: 1100px; margin: 0 auto; }
+.section-label {
+    font-size: .8rem;
+    font-weight: 700;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--c-primary);
+    margin-bottom: .5rem;
+}
+.section-title {
+    font-size: clamp(1.6rem, 3vw, 2.2rem);
+    font-weight: 800;
+    letter-spacing: -.03em;
+    margin-bottom: .75rem;
+    color: var(--c-text);
+}
+.section-desc {
+    color: var(--c-muted);
+    font-size: 1.05rem;
+    max-width: 580px;
+    margin-bottom: 2.5rem;
+    line-height: 1.7;
+}
+.divider {
+    border: none;
+    border-top: 1px solid var(--c-border);
+}
+
+/* ── Grid ────────────────────────────────────────────────── */
+.grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px,1fr)); gap: 1.25rem; }
+.grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px,1fr)); gap: 1rem; }
+
+/* ── Card ────────────────────────────────────────────────── */
+.card {
+    background: var(--c-card);
+    border: 1px solid var(--c-border);
+    border-radius: 18px;
+    padding: 1.5rem;
+    transition: background .3s, border-color .3s, box-shadow .2s;
+}
+.card:hover { box-shadow: 0 8px 24px rgba(0,0,0,.06); }
+body.dark .card:hover { box-shadow: 0 8px 24px rgba(0,0,0,.3); }
+.card-icon { font-size: 1.75rem; margin-bottom: .75rem; }
+.card h3 { font-size: 1rem; font-weight: 700; margin-bottom: .4rem; color: var(--c-text); }
+.card p { font-size: .875rem; color: var(--c-muted); margin-bottom: 1rem; line-height: 1.55; }
+.btn-row { display: flex; flex-wrap: wrap; gap: .5rem; }
+
+/* ── Demo buttons ─────────────────────────────────────────── */
+.d { display: inline-flex; align-items: center; gap: .35rem; padding: .5rem 1rem; border: none; border-radius: 9999px; font-size: .875rem; font-weight: 600; cursor: pointer; transition: transform .15s, box-shadow .15s; white-space: nowrap; }
+.d:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(0,0,0,.15); }
+.d:active { transform: none; }
+.d-violet { background:#6366f1; color:#fff; }
+.d-green  { background:#10b981; color:#fff; }
+.d-red    { background:#ef4444; color:#fff; }
+.d-amber  { background:#f59e0b; color:#fff; }
+.d-sky    { background:#0ea5e9; color:#fff; }
+.d-slate  { background:#475569; color:#fff; }
+.d-ghost  { background:transparent; color:var(--c-text); border:1.5px solid var(--c-border); }
+.d-ghost:hover { border-color: var(--c-primary); color: var(--c-primary); }
+
+/* ── Code block ──────────────────────────────────────────── */
+.code {
+    background: var(--c-code-bg);
+    border-radius: 14px;
+    padding: 1.25rem 1.5rem;
+    font-family: 'Fira Code','Cascadia Code', monospace;
+    font-size: .875rem;
+    line-height: 1.75;
+    overflow-x: auto;
+    color: #e2e8f0;
+    margin-top: 1.25rem;
+    position: relative;
+}
+.code .kw  { color: #818cf8; }
+.code .fn  { color: #34d399; }
+.code .str { color: #fbbf24; }
+.code .cm  { color: #475569; }
+.code .op  { color: #f472b6; }
+.code-copy {
+    position: absolute; top: .75rem; right: .75rem;
+    background: #1e293b; border: 1px solid #334155; color: #64748b;
+    padding: .25rem .6rem; border-radius: 6px; font-size: .75rem;
+    cursor: pointer; transition: all .2s;
+}
+.code-copy:hover { color: #fff; background: #334155; }
+
+/* ── Example row (side by side) ──────────────────────────── */
+.example-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    align-items: start;
+}
+@media(max-width:700px){ .example-row { grid-template-columns: 1fr; } }
+
+/* ── Config table ────────────────────────────────────────── */
+.config-table { width: 100%; border-collapse: collapse; font-size: .875rem; }
+.config-table th {
+    text-align: left;
+    padding: .7rem 1rem;
+    background: var(--c-card);
+    border-bottom: 2px solid var(--c-border);
+    color: var(--c-muted);
+    font-weight: 700;
+    font-size: .8rem;
+    text-transform: uppercase;
+    letter-spacing: .05em;
+}
+.config-table td {
+    padding: .7rem 1rem;
+    border-bottom: 1px solid var(--c-border);
+    vertical-align: top;
+    color: var(--c-text);
+}
+.config-table tr:last-child td { border-bottom: none; }
+.config-table tr:hover td { background: var(--c-bg); }
+code {
+    background: rgba(99,102,241,.1);
+    color: var(--c-primary);
+    padding: .15rem .4rem;
+    border-radius: 5px;
+    font-family: 'Fira Code', monospace;
+    font-size: .83em;
+}
+body.dark code { background: rgba(99,102,241,.2); }
+
+/* ── Theme cards ─────────────────────────────────────────── */
+.theme-card {
+    border-radius: 18px;
+    padding: 2rem;
+    cursor: pointer;
+    transition: transform .2s, box-shadow .2s;
+    border: 2px solid transparent;
+}
+.theme-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(0,0,0,.12); }
+.theme-card.selected { border-color: var(--c-primary); }
+.theme-light-card { background: #ffffff; color: #1e293b; }
+.theme-dark-card  { background: #1e293b; color: #f1f5f9; }
+.theme-auto-card  { background: linear-gradient(135deg, #fff 50%, #1e293b 50%); color: #6366f1; }
+.theme-card h4 { font-size: 1.1rem; font-weight: 700; margin-bottom: .3rem; }
+.theme-card p  { font-size: .85rem; opacity: .7; margin: 0; }
+
+/* ── Feature list ────────────────────────────────────────── */
+.feature-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px,1fr)); gap: 1rem; }
+.feature-item {
+    display: flex; align-items: flex-start; gap: .75rem;
+    padding: 1.1rem; background: var(--c-card);
+    border: 1px solid var(--c-border); border-radius: 14px;
+    transition: background .3s, border-color .3s;
+}
+.feature-item-icon { font-size: 1.4rem; flex-shrink: 0; }
+.feature-item-text { font-size: .875rem; font-weight: 600; color: var(--c-text); }
+.feature-item-sub  { font-size: .78rem; color: var(--c-muted); margin-top: .1rem; }
+
+/* ── API method list ─────────────────────────────────────── */
+.method-list { display: grid; gap: .75rem; }
+.method-item {
+    background: var(--c-card);
+    border: 1px solid var(--c-border);
+    border-radius: 14px;
+    padding: 1.1rem 1.25rem;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: .5rem 1rem;
+    align-items: start;
+    transition: background .3s, border-color .3s;
+}
+.method-sig { font-family: 'Fira Code', monospace; font-size: .9rem; color: var(--c-primary); font-weight: 600; }
+.method-desc { font-size: .875rem; color: var(--c-muted); }
+
+/* ── Footer ──────────────────────────────────────────────── */
+.footer {
+    background: #0f172a;
+    color: #475569;
+    text-align: center;
+    padding: 3rem 1.5rem;
+    font-size: .9rem;
+}
+.footer strong { color: #94a3b8; }
+.footer a { color: #818cf8; text-decoration: none; }
+.footer a:hover { text-decoration: underline; }
+
+/* ── Responsive nav ──────────────────────────────────────── */
+@media(max-width:768px) {
+    .nav-links { display: none; }
+    .navbar { padding: 0 1rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- ══ NAVBAR ══════════════════════════════════════════════ -->
+<nav class="navbar">
+    <a href="#" class="nav-logo">
+        <img src="../assets/royalalert.png" alt="RoyalAlert Logo">
+        RoyalAlert
+    </a>
+    <ul class="nav-links">
+        <li><a href="#install">Install</a></li>
+        <li><a href="#examples">Examples</a></li>
+        <li><a href="#toasts">Toasts</a></li>
+        <li><a href="#inputs">Inputs</a></li>
+        <li><a href="#themes">Themes</a></li>
+        <li><a href="#api">API</a></li>
+        <li><a href="#download">Download</a></li>
+        <li><a href="https://github.com/Royal-Technologies/RoyalAlert" target="_blank">GitHub</a></li>
+    </ul>
+    <div class="nav-right">
+        <button class="btn-theme" id="themeToggle">🌙 Dark</button>
+        <a class="btn-npm" href="https://www.npmjs.com/package/royal-alert" target="_blank">npm</a>
+    </div>
+</nav>
+
+<!-- ══ HERO ════════════════════════════════════════════════ -->
+<header class="hero">
+    <div class="hero-eyebrow">✦ Version 1.0 — Now Available</div>
+    <h1>RoyalAlert</h1>
+    <p class="hero-sub">A beautiful, accessible, zero-dependency JavaScript popup library — alerts, toasts, confirmations, prompts & modals.</p>
+    <div class="hero-badges">
+        <span class="badge">✦ Zero Dependencies</span>
+        <span class="badge">✦ Vanilla JS</span>
+        <span class="badge">✦ Accessible (A11y)</span>
+        <span class="badge">✦ TypeScript</span>
+        <span class="badge">✦ Dark Mode</span>
+        <span class="badge">✦ ~5KB gzipped</span>
+    </div>
+    <div class="hero-actions">
+        <button class="btn-hero-primary" data-demo="welcome">⚡ Try it now</button>
+        <a class="btn-hero-ghost" href="https://github.com/Royal-Technologies/RoyalAlert" target="_blank">⭐ GitHub</a>
+    </div>
+</header>
+
+<!-- ══ INSTALL ═════════════════════════════════════════════ -->
+<div class="install-strip" id="install">
+    <div class="install-tabs">
+        <button class="itab active" onclick="showTab('cdn')">CDN</button>
+        <button class="itab" onclick="showTab('npm')">npm</button>
+        <button class="itab" onclick="showTab('esm')">ES Module</button>
+    </div>
+    <div id="tab-cdn" class="install-code active">
+        <button class="copy-btn" onclick="copyCode('cdn')">Copy</button>
+&lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/royal-alert/dist/royal-alert.min.css"&gt;
+&lt;script src="https://cdn.jsdelivr.net/npm/royal-alert/dist/royal-alert.min.js"&gt;&lt;/script&gt;
+    </div>
+    <div id="tab-npm" class="install-code">
+        <button class="copy-btn" onclick="copyCode('npm')">Copy</button>
+npm install royal-alert
+    </div>
+    <div id="tab-esm" class="install-code">
+        <button class="copy-btn" onclick="copyCode('esm')">Copy</button>
+import RoyalAlert from 'royal-alert';
+import 'royal-alert/dist/royal-alert.css';
+    </div>
+</div>
+
+<!-- ══ FEATURES ════════════════════════════════════════════ -->
+<div style="max-width:1100px;margin:0 auto;padding:3rem 1.5rem 0;">
+    <div class="feature-grid">
+        <div class="feature-item"><div class="feature-item-icon">⚡</div><div><div class="feature-item-text">Zero Dependencies</div><div class="feature-item-sub">Pure Vanilla JS + CSS</div></div></div>
+        <div class="feature-item"><div class="feature-item-icon">🎨</div><div><div class="feature-item-text">CSS Variables</div><div class="feature-item-sub">Infinitely customisable</div></div></div>
+        <div class="feature-item"><div class="feature-item-icon">♿</div><div><div class="feature-item-text">Accessible (A11y)</div><div class="feature-item-sub">Focus trap, ARIA, Esc</div></div></div>
+        <div class="feature-item"><div class="feature-item-icon">🌙</div><div><div class="feature-item-text">Dark / Auto Mode</div><div class="feature-item-sub">Follows OS preference</div></div></div>
+        <div class="feature-item"><div class="feature-item-icon">📱</div><div><div class="feature-item-text">Responsive</div><div class="feature-item-sub">Mobile & tablet ready</div></div></div>
+        <div class="feature-item"><div class="feature-item-icon">🔷</div><div><div class="feature-item-text">TypeScript</div><div class="feature-item-sub">Full type safety</div></div></div>
+        <div class="feature-item"><div class="feature-item-icon">🍞</div><div><div class="feature-item-text">9 Toast Positions</div><div class="feature-item-sub">Stack & pause on hover</div></div></div>
+        <div class="feature-item"><div class="feature-item-icon">✅</div><div><div class="feature-item-text">Promise-Based</div><div class="feature-item-sub">async / await friendly</div></div></div>
+        <div class="feature-item"><div class="feature-item-icon">🔌</div><div><div class="feature-item-text">WordPress Safe</div><div class="feature-item-sub">No jQuery, no conflicts</div></div></div>
+        <div class="feature-item"><div class="feature-item-icon">🎞️</div><div><div class="feature-item-text">4 Animations</div><div class="feature-item-sub">scale, fade, slide, flip</div></div></div>
+    </div>
+</div>
+
+<!-- ══ BASIC EXAMPLES ══════════════════════════════════════ -->
+<section class="section" id="examples">
+    <div class="section-label">Examples</div>
+    <h2 class="section-title">Basic Alerts</h2>
+    <p class="section-desc">One-line calls for the most common scenarios. Each type comes with a matching icon and colour.</p>
+
+    <div class="example-row">
+        <div>
+            <div class="btn-row" style="margin-bottom:1rem">
+                <button class="d d-green"  data-demo="success">✓ success()</button>
+                <button class="d d-red"    data-demo="error">✕ error()</button>
+                <button class="d d-amber"  data-demo="warning">⚠ warning()</button>
+                <button class="d d-sky"    data-demo="info">ℹ info()</button>
+                <button class="d d-violet" data-demo="question">? question()</button>
+                <button class="d d-slate"  data-demo="loading">⟳ loading()</button>
+            </div>
+            <div class="btn-row">
+                <button class="d d-violet" data-demo="custom-fire">fire() — full options</button>
+                <button class="d d-ghost"  data-demo="close-btn">Close × button</button>
+                <button class="d d-ghost"  data-demo="no-icon">No icon</button>
+                <button class="d d-ghost"  data-demo="auto-close">Auto close (3s)</button>
+            </div>
+        </div>
+        <div class="code">
+<span class="cm">// Shorthand methods</span>
+<span class="fn">RoyalAlert</span>.<span class="fn">success</span>(<span class="str">'Saved!'</span>);
+<span class="fn">RoyalAlert</span>.<span class="fn">error</span>(<span class="str">'Something went wrong.'</span>);
+<span class="fn">RoyalAlert</span>.<span class="fn">warning</span>(<span class="str">'Check your input.'</span>);
+<span class="fn">RoyalAlert</span>.<span class="fn">info</span>(<span class="str">'Update available.'</span>);
+
+<span class="cm">// Full control</span>
+<span class="fn">RoyalAlert</span>.<span class="fn">fire</span>({
+  type: <span class="str">'success'</span>,
+  icon: <span class="str">'success'</span>,
+  title: <span class="str">'Profile Updated'</span>,
+  message: <span class="str">'Your changes were saved.'</span>,
+  confirmText: <span class="str">'Great!'</span>
+});</div>
+    </div>
+
+    <hr class="divider" style="margin-top:3rem">
+</section>
+
+<!-- ══ CONFIRMATIONS ═══════════════════════════════════════ -->
+<section class="section" id="confirmations">
+    <div class="section-label">Interactions</div>
+    <h2 class="section-title">Confirmations</h2>
+    <p class="section-desc">Returns a Promise. Use <code>await</code> to know what the user chose. Supports 2 or 3 buttons.</p>
+
+    <div class="example-row">
+        <div class="btn-row" style="flex-direction:column;align-items:flex-start;gap:.75rem">
+            <button class="d d-red"    data-demo="confirm-delete">🗑 Delete confirmation</button>
+            <button class="d d-violet" data-demo="confirm-3btn">3 buttons — Save / Don't save / Cancel</button>
+            <button class="d d-amber"  data-demo="confirm-reverse">Reversed button order</button>
+            <button class="d d-slate"  data-demo="confirm-custom-backdrop">Custom backdrop colour</button>
+        </div>
+        <div class="code">
+<span class="kw">const</span> result = <span class="kw">await</span> <span class="fn">RoyalAlert</span>.<span class="fn">confirm</span>({
+  icon: <span class="str">'warning'</span>,
+  title: <span class="str">'Delete item?'</span>,
+  message: <span class="str">'This cannot be undone.'</span>,
+  confirmText: <span class="str">'Delete'</span>
+});
+
+<span class="kw">if</span> (result.confirmed) deleteItem();
+
+<span class="cm">// 3-button dialog</span>
+<span class="kw">const</span> r = <span class="kw">await</span> <span class="fn">RoyalAlert</span>.<span class="fn">fire</span>({
+  title: <span class="str">'Save changes?'</span>,
+  showDenyButton:   <span class="op">true</span>,
+  showCancelButton: <span class="op">true</span>,
+  confirmText: <span class="str">'💾 Save'</span>,
+  denyText:    <span class="str">"Don't save"</span>
+});
+
+<span class="kw">if</span>      (r.confirmed) save();
+<span class="kw">else if</span> (r.denied)    discard();</div>
+    </div>
+    <hr class="divider" style="margin-top:3rem">
+</section>
+
+<!-- ══ TOASTS ══════════════════════════════════════════════ -->
+<section class="section" id="toasts">
+    <div class="section-label">Notifications</div>
+    <h2 class="section-title">Toast Notifications</h2>
+    <p class="section-desc">Non-blocking toasts that stack, auto-dismiss, and pause on hover. Choose from 9 positions.</p>
+
+    <div class="grid-2" style="margin-bottom:1.5rem">
+        <div class="card">
+            <div class="card-icon">📍</div>
+            <h3>Positions</h3>
+            <p>9 placements across all corners and centers of the screen.</p>
+            <div class="btn-row">
+                <button class="d d-violet" data-demo="toast-tl">Top Left</button>
+                <button class="d d-violet" data-demo="toast-tc">Top Center</button>
+                <button class="d d-violet" data-demo="toast-tr">Top Right</button>
+                <button class="d d-sky"    data-demo="toast-bl">Bottom Left</button>
+                <button class="d d-sky"    data-demo="toast-bc">Bottom Center</button>
+                <button class="d d-sky"    data-demo="toast-br">Bottom Right</button>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-icon">🎭</div>
+            <h3>Types & Stacking</h3>
+            <p>Multiple toasts stack independently. Each has its own timer. Hover to pause.</p>
+            <div class="btn-row">
+                <button class="d d-green"  data-demo="toast-success">✓ Success</button>
+                <button class="d d-red"    data-demo="toast-error">✕ Error</button>
+                <button class="d d-amber"  data-demo="toast-warning">⚠ Warning</button>
+                <button class="d d-sky"    data-demo="toast-info">ℹ Info</button>
+                <button class="d d-slate"  data-demo="toast-stack">Stack 4 toasts</button>
+            </div>
+        </div>
+    </div>
+    <div class="code">
+<span class="fn">RoyalAlert</span>.<span class="fn">toast</span>({
+  type:     <span class="str">'success'</span>,
+  title:    <span class="str">'File uploaded'</span>,
+  message:  <span class="str">'report.pdf saved to cloud.'</span>,
+  position: <span class="str">'bottom-left'</span>,   <span class="cm">// default</span>
+  duration: <span class="op">3500</span>,             <span class="cm">// ms — 0 = never dismiss</span>
+});</div>
+    <hr class="divider" style="margin-top:3rem">
+</section>
+
+<!-- ══ INPUTS ══════════════════════════════════════════════ -->
+<section class="section" id="inputs">
+    <div class="section-label">Forms</div>
+    <h2 class="section-title">Input Prompts & Validation</h2>
+    <p class="section-desc">Collect user input inside a dialog. Supports async validators that prevent close until input is correct.</p>
+
+    <div class="grid-2" style="margin-bottom:1.5rem">
+        <div class="card">
+            <div class="card-icon">📝</div>
+            <h3>Input Types</h3>
+            <p>text, email, password, number, textarea, select</p>
+            <div class="btn-row">
+                <button class="d d-violet" data-demo="prompt-text">Text</button>
+                <button class="d d-sky"    data-demo="prompt-email">Email</button>
+                <button class="d d-slate"  data-demo="prompt-pass">Password</button>
+                <button class="d d-violet" data-demo="prompt-textarea">Textarea</button>
+                <button class="d d-slate"  data-demo="prompt-number">Number</button>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-icon">🛡️</div>
+            <h3>Async Validation</h3>
+            <p>Return a string from <code>inputValidator</code> to show an error and block close.</p>
+            <div class="btn-row">
+                <button class="d d-red"   data-demo="prompt-ip">Validate IP address</button>
+                <button class="d d-amber" data-demo="prompt-required">Required field</button>
+                <button class="d d-green" data-demo="prompt-email-val">Email + async check</button>
+            </div>
+        </div>
+    </div>
+    <div class="code">
+<span class="kw">const</span> result = <span class="kw">await</span> <span class="fn">RoyalAlert</span>.<span class="fn">prompt</span>({
+  title:            <span class="str">'Enter your email'</span>,
+  inputType:        <span class="str">'email'</span>,
+  inputPlaceholder: <span class="str">'you@example.com'</span>,
+
+  inputValidator: <span class="kw">async</span> (value) => {
+    <span class="kw">if</span> (!value)            <span class="kw">return</span> <span class="str">'Email is required.'</span>;
+    <span class="kw">if</span> (!value.includes(<span class="str">'@'</span>)) <span class="kw">return</span> <span class="str">'Invalid email.'</span>;
+    <span class="kw">const</span> taken = <span class="kw">await</span> checkIfTaken(value);
+    <span class="kw">if</span> (taken)             <span class="kw">return</span> <span class="str">'Already registered.'</span>;
+    <span class="cm">// return nothing → passes</span>
+  }
+});
+
+<span class="kw">if</span> (result.confirmed) subscribe(result.value);</div>
+    <hr class="divider" style="margin-top:3rem">
+</section>
+
+<!-- ══ LOADING & PROGRESS ══════════════════════════════════ -->
+<section class="section" id="loading">
+    <div class="section-label">Async</div>
+    <h2 class="section-title">Loading, Progress & Async</h2>
+    <p class="section-desc">Block UI during async operations, track progress, and automatically transition to success or error.</p>
+
+    <div class="grid-2" style="margin-bottom:1.5rem">
+        <div class="card">
+            <div class="card-icon">⏳</div>
+            <h3>Loading & Update</h3>
+            <p>Open a spinner, update the message live, then close when done.</p>
+            <div class="btn-row">
+                <button class="d d-violet" data-demo="loading">Basic loading</button>
+                <button class="d d-sky"    data-demo="loading-steps">Multi-step messages</button>
+                <button class="d d-green"  data-demo="progress">Progress bar</button>
+                <button class="d d-amber"  data-demo="timer-bar">Timer progress bar</button>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-icon">🌐</div>
+            <h3>Async & fetch()</h3>
+            <p>Wraps any Promise — shows loading, resolves to success or error automatically.</p>
+            <div class="btn-row">
+                <button class="d d-green"  data-demo="async-ok">Async (success)</button>
+                <button class="d d-red"    data-demo="async-fail">Async (error)</button>
+                <button class="d d-sky"    data-demo="request">fetch() wrapper</button>
+            </div>
+        </div>
+    </div>
+    <div class="code">
+<span class="cm">// Manual control</span>
+<span class="fn">RoyalAlert</span>.<span class="fn">loading</span>(<span class="str">'Uploading…'</span>);
+<span class="fn">RoyalAlert</span>.<span class="fn">update</span>({ message: <span class="str">'Processing…'</span>, progress: <span class="op">60</span> });
+<span class="fn">RoyalAlert</span>.<span class="fn">close</span>();
+
+<span class="cm">// Auto-managed async</span>
+<span class="kw">await</span> <span class="fn">RoyalAlert</span>.<span class="fn">async</span>({
+  title:  <span class="str">'Saving to cloud…'</span>,
+  action: <span class="kw">async</span> () => {
+    <span class="kw">const</span> res = <span class="kw">await</span> <span class="fn">fetch</span>(<span class="str">'/api/save'</span>, { method: <span class="str">'POST'</span> });
+    <span class="kw">if</span> (!res.ok) <span class="kw">throw new</span> <span class="fn">Error</span>(<span class="str">'Server error'</span>);
+  },
+  successMessage: <span class="str">'Saved!'</span>,
+  errorMessage:   <span class="str">'Could not save.'</span>
+});</div>
+    <hr class="divider" style="margin-top:3rem">
+</section>
+
+<!-- ══ HTML & MODALS ════════════════════════════════════════ -->
+<section class="section" id="modals">
+    <div class="section-label">Content</div>
+    <h2 class="section-title">Custom HTML Modals</h2>
+    <p class="section-desc">Embed any HTML content, custom images, and footer links inside a dialog.</p>
+
+    <div class="grid-2" style="margin-bottom:1.5rem">
+        <div class="card">
+            <div class="card-icon">🖼️</div>
+            <h3>Rich Content</h3>
+            <p>HTML body, custom images, footer strip, and scrollable long content.</p>
+            <div class="btn-row">
+                <button class="d d-violet" data-demo="modal-html">HTML content</button>
+                <button class="d d-sky"    data-demo="modal-image">Custom image</button>
+                <button class="d d-slate"  data-demo="modal-footer">Footer link</button>
+                <button class="d d-ghost"  data-demo="modal-scroll">Long scrollable</button>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-icon">🎛️</div>
+            <h3>Custom Buttons</h3>
+            <p>Full control over button text, colour, order, and click callbacks.</p>
+            <div class="btn-row">
+                <button class="d d-violet" data-demo="custom-btns">3 custom buttons</button>
+                <button class="d d-amber"  data-demo="reverse-btns">Reversed order</button>
+            </div>
+        </div>
+    </div>
+    <div class="code">
+<span class="fn">RoyalAlert</span>.<span class="fn">modal</span>({
+  title: <span class="str">'Terms of Service'</span>,
+  html:  <span class="str">`&lt;div style="text-align:left"&gt;
+    &lt;p&gt;By using &lt;strong&gt;RoyalAlert&lt;/strong&gt; you agree to…&lt;/p&gt;
+  &lt;/div&gt;`</span>,
+  footer:       <span class="str">'&lt;a href="#"&gt;Read full terms&lt;/a&gt;'</span>,
+  imageUrl:     <span class="str">'https://picsum.photos/480/220'</span>,
+  confirmText:  <span class="str">'I Agree'</span>,
+  width:        <span class="op">600</span>
+});</div>
+    <hr class="divider" style="margin-top:3rem">
+</section>
+
+<!-- ══ ANIMATIONS ══════════════════════════════════════════ -->
+<section class="section" id="animations">
+    <div class="section-label">Motion</div>
+    <h2 class="section-title">Animations</h2>
+    <p class="section-desc">Four CSS-driven entrance animations. All animations are disabled automatically when the OS has <code>prefers-reduced-motion</code> enabled.</p>
+
+    <div class="grid-3" style="margin-bottom:1.5rem">
+        <div class="card" style="text-align:center">
+            <div style="font-size:2rem;margin-bottom:.5rem">📦</div>
+            <h3>scale</h3>
+            <p>Default. Scales up with a spring bounce.</p>
+            <button class="d d-violet" data-demo="anim-scale">Try scale</button>
+        </div>
+        <div class="card" style="text-align:center">
+            <div style="font-size:2rem;margin-bottom:.5rem">🌅</div>
+            <h3>fade</h3>
+            <p>Smooth opacity transition.</p>
+            <button class="d d-violet" data-demo="anim-fade">Try fade</button>
+        </div>
+        <div class="card" style="text-align:center">
+            <div style="font-size:2rem;margin-bottom:.5rem">⬇️</div>
+            <h3>slide</h3>
+            <p>Slides down from above.</p>
+            <button class="d d-violet" data-demo="anim-slide">Try slide</button>
+        </div>
+        <div class="card" style="text-align:center">
+            <div style="font-size:2rem;margin-bottom:.5rem">🔄</div>
+            <h3>flip</h3>
+            <p>3D perspective entrance.</p>
+            <button class="d d-violet" data-demo="anim-flip">Try flip</button>
+        </div>
+    </div>
+    <hr class="divider">
+</section>
+
+<!-- ══ THEMES ══════════════════════════════════════════════ -->
+<section class="section" id="themes">
+    <div class="section-label">Theming</div>
+    <h2 class="section-title">Themes & CSS Variables</h2>
+    <p class="section-desc">Switch between light, dark, or auto (follows OS preference). Override any <code>--ra-*</code> CSS variable to match your brand.</p>
+
+    <div class="grid-3" style="margin-bottom:2rem">
+        <div class="theme-card theme-light-card" onclick="setThemeDemo('light')" id="tc-light">
+            <h4>☀️ Light</h4>
+            <p>Clean white background, default</p>
+            <button class="d d-slate" style="margin-top:1rem" data-demo="theme-light">Preview</button>
+        </div>
+        <div class="theme-card theme-dark-card" onclick="setThemeDemo('dark')" id="tc-dark">
+            <h4>🌙 Dark</h4>
+            <p>Deep navy surface, refined</p>
+            <button class="d d-violet" style="margin-top:1rem" data-demo="theme-dark">Preview</button>
+        </div>
+        <div class="theme-card theme-auto-card" onclick="setThemeDemo('auto')" id="tc-auto">
+            <h4>⚙️ Auto</h4>
+            <p>Follows your OS preference</p>
+            <button class="d d-sky" style="margin-top:1rem" data-demo="theme-auto">Preview</button>
+        </div>
+    </div>
+
+    <div class="code">
+<span class="cm">/* Override CSS variables in your stylesheet */</span>
+<span class="kw">:root</span> {
+  --ra-primary:      <span class="str">#6366f1</span>;  <span class="cm">/* Confirm button, focus rings */</span>
+  --ra-success:      <span class="str">#10b981</span>;
+  --ra-error:        <span class="str">#ef4444</span>;
+  --ra-bg:           <span class="str">#ffffff</span>;  <span class="cm">/* Card background */</span>
+  --ra-radius:       <span class="str">24px</span>;     <span class="cm">/* Card corner radius */</span>
+  --ra-radius-btn:   <span class="str">9999px</span>;  <span class="cm">/* Pill buttons */</span>
+  --ra-overlay:      <span class="str">rgba(15,23,42,.45)</span>;
+}
+
+<span class="cm">// JS global config</span>
+<span class="fn">RoyalAlert</span>.<span class="fn">config</span>({
+  theme:     <span class="str">'auto'</span>,   <span class="cm">// 'light' | 'dark' | 'auto'</span>
+  animation: <span class="str">'scale'</span>,  <span class="cm">// 'scale' | 'fade' | 'slide' | 'flip'</span>
+  position:  <span class="str">'bottom-left'</span>,
+  duration:  <span class="op">3000</span>
+});</div>
+    <hr class="divider" style="margin-top:3rem">
+</section>
+
+<!-- ══ API REFERENCE ═══════════════════════════════════════ -->
+<section class="section" id="api">
+    <div class="section-label">Reference</div>
+    <h2 class="section-title">API Reference</h2>
+    <p class="section-desc">All methods, their signatures, and what they return.</p>
+
+    <div class="method-list" style="margin-bottom:2rem">
+        <div class="method-item"><div class="method-sig">RoyalAlert.fire(options)</div><div class="method-desc">Core method — opens any dialog. Returns <code>Promise&lt;Result&gt;</code>.</div></div>
+        <div class="method-item"><div class="method-sig">RoyalAlert.success(message)</div><div class="method-desc">Success alert with green icon.</div></div>
+        <div class="method-item"><div class="method-sig">RoyalAlert.error(message)</div><div class="method-desc">Error alert with red icon.</div></div>
+        <div class="method-item"><div class="method-sig">RoyalAlert.warning(message)</div><div class="method-desc">Warning alert with amber icon.</div></div>
+        <div class="method-item"><div class="method-sig">RoyalAlert.info(message)</div><div class="method-desc">Info alert with blue icon.</div></div>
+        <div class="method-item"><div class="method-sig">RoyalAlert.loading(message?)</div><div class="method-desc">Spinner dialog — closes only via <code>.close()</code>. Not dismissable by user.</div></div>
+        <div class="method-item"><div class="method-sig">RoyalAlert.toast(options)</div><div class="method-desc">Non-blocking notification. Stacks per position. Pauses on hover.</div></div>
+        <div class="method-item"><div class="method-sig">RoyalAlert.confirm(options)</div><div class="method-desc">Confirm + Cancel dialog. Returns <code>{ confirmed, cancelled }</code>.</div></div>
+        <div class="method-item"><div class="method-sig">RoyalAlert.prompt(options)</div><div class="method-desc">Input dialog with optional async validator. Returns <code>{ confirmed, value }</code>.</div></div>
+        <div class="method-item"><div class="method-sig">RoyalAlert.modal(options)</div><div class="method-desc">Flexible modal — HTML content, custom width, image, footer.</div></div>
+        <div class="method-item"><div class="method-sig">RoyalAlert.progress(options)</div><div class="method-desc">Determinate progress bar. Update with <code>.update({ progress: 80 })</code>.</div></div>
+        <div class="method-item"><div class="method-sig">RoyalAlert.async(options)</div><div class="method-desc">Auto-manages loading → success / error around a Promise.</div></div>
+        <div class="method-item"><div class="method-sig">RoyalAlert.request(options)</div><div class="method-desc">Native <code>fetch()</code> wrapper with loading states.</div></div>
+        <div class="method-item"><div class="method-sig">RoyalAlert.update(options)</div><div class="method-desc">Live-update title, message, or progress without closing.</div></div>
+        <div class="method-item"><div class="method-sig">RoyalAlert.close()</div><div class="method-desc">Programmatically close the topmost open dialog.</div></div>
+        <div class="method-item"><div class="method-sig">RoyalAlert.closeAll()</div><div class="method-desc">Close all open dialogs at once.</div></div>
+        <div class="method-item"><div class="method-sig">RoyalAlert.config(options)</div><div class="method-desc">Set global defaults. Per-dialog options always override these.</div></div>
+        <div class="method-item"><div class="method-sig">RoyalAlert.isOpen()</div><div class="method-desc">Returns <code>boolean</code> — true if any dialog is currently visible.</div></div>
+    </div>
+
+    <h3 style="margin-bottom:1rem;font-size:1.2rem;font-weight:700">Result Object</h3>
+    <div style="overflow-x:auto;border-radius:14px;border:1px solid var(--c-border)">
+    <table class="config-table">
+        <thead><tr><th>Property</th><th>Type</th><th>Description</th></tr></thead>
+        <tbody>
+            <tr><td><code>confirmed</code></td><td><code>boolean</code></td><td>User clicked the Confirm button</td></tr>
+            <tr><td><code>cancelled</code></td><td><code>boolean</code></td><td>User clicked Cancel, ×, Esc, or the overlay</td></tr>
+            <tr><td><code>denied</code></td><td><code>boolean</code></td><td>User clicked the Deny button (3-button dialogs)</td></tr>
+            <tr><td><code>value</code></td><td><code>any</code></td><td>Input value (prompt), <code>true</code> (confirm), button ID (custom buttons)</td></tr>
+        </tbody>
+    </table>
+    </div>
+
+    <h3 style="margin:2rem 0 1rem;font-size:1.2rem;font-weight:700">Key Options</h3>
+    <div style="overflow-x:auto;border-radius:14px;border:1px solid var(--c-border)">
+    <table class="config-table">
+        <thead><tr><th>Option</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
+        <tbody>
+            <tr><td><code>type</code></td><td>string</td><td><code>'info'</code></td><td>success / error / warning / info / question / loading</td></tr>
+            <tr><td><code>title</code></td><td>string</td><td>—</td><td>Dialog heading</td></tr>
+            <tr><td><code>message</code></td><td>string</td><td>—</td><td>Body text (XSS-safe, uses textContent)</td></tr>
+            <tr><td><code>html</code></td><td>string</td><td>—</td><td>Raw HTML body (sanitise untrusted data yourself)</td></tr>
+            <tr><td><code>confirmText</code></td><td>string</td><td><code>'OK'</code></td><td>Confirm button label</td></tr>
+            <tr><td><code>cancelText</code></td><td>string</td><td><code>'Cancel'</code></td><td>Cancel button label</td></tr>
+            <tr><td><code>showCancelButton</code></td><td>boolean</td><td><code>false</code></td><td>Show Cancel button</td></tr>
+            <tr><td><code>showDenyButton</code></td><td>boolean</td><td><code>false</code></td><td>Show third Deny button</td></tr>
+            <tr><td><code>inputType</code></td><td>string</td><td><code>'text'</code></td><td>text / email / password / number / textarea / select</td></tr>
+            <tr><td><code>inputValidator</code></td><td>function</td><td>—</td><td>async (value) → error string or void</td></tr>
+            <tr><td><code>animation</code></td><td>string</td><td><code>'scale'</code></td><td>scale / fade / slide / flip / none</td></tr>
+            <tr><td><code>theme</code></td><td>string</td><td><code>'light'</code></td><td>light / dark / auto</td></tr>
+            <tr><td><code>timerProgressBar</code></td><td>boolean</td><td><code>false</code></td><td>Show shrinking bar when <code>autoClose</code> is on</td></tr>
+            <tr><td><code>backdrop</code></td><td>string</td><td>—</td><td>Custom CSS background for overlay</td></tr>
+            <tr><td><code>reverseButtons</code></td><td>boolean</td><td><code>false</code></td><td>Swap confirm / cancel positions</td></tr>
+            <tr><td><code>closeOnEscape</code></td><td>boolean</td><td><code>true</code></td><td>Esc key closes dialog</td></tr>
+            <tr><td><code>closeOnOverlay</code></td><td>boolean</td><td><code>true</code></td><td>Click outside to close</td></tr>
+        </tbody>
+    </table>
+    </div>
+    <hr class="divider" style="margin-top:3rem">
+</section>
+
+<!-- ══ WORDPRESS ════════════════════════════════════════════ -->
+<section class="section" id="wordpress">
+    <div class="section-label">Platforms</div>
+    <h2 class="section-title">WordPress Integration</h2>
+    <p class="section-desc">Drop RoyalAlert into any plugin or theme. No jQuery required. Zero conflicts with WP Admin or existing scripts.</p>
+    <div class="code">
+<span class="cm">// PHP — enqueue in your plugin</span>
+<span class="kw">function</span> <span class="fn">my_plugin_scripts</span>() {
+  <span class="fn">wp_enqueue_style</span>( <span class="str">'royal-alert'</span>, <span class="str">'https://cdn.jsdelivr.net/npm/royal-alert/dist/royal-alert.min.css'</span> );
+  <span class="fn">wp_enqueue_script</span>( <span class="str">'royal-alert'</span>, <span class="str">'https://cdn.jsdelivr.net/npm/royal-alert/dist/royal-alert.min.js'</span>, [], <span class="str">'1.0.0'</span>, <span class="op">true</span> );
+
+  <span class="fn">wp_localize_script</span>( <span class="str">'royal-alert'</span>, <span class="str">'myVars'</span>, [
+    <span class="str">'ajax_url'</span> => <span class="fn">admin_url</span>( <span class="str">'admin-ajax.php'</span> ),
+    <span class="str">'nonce'</span>    => <span class="fn">wp_create_nonce</span>( <span class="str">'my_nonce'</span> )
+  ]);
+}
+<span class="fn">add_action</span>( <span class="str">'wp_enqueue_scripts'</span>, <span class="str">'my_plugin_scripts'</span> );
+
+<span class="cm">// JS — use in your script</span>
+<span class="kw">const</span> result = <span class="kw">await</span> <span class="fn">RoyalAlert</span>.<span class="fn">confirm</span>({ title: <span class="str">'Delete this post?'</span> });
+<span class="kw">if</span> (result.confirmed) {
+  <span class="fn">RoyalAlert</span>.<span class="fn">loading</span>(<span class="str">'Deleting…'</span>);
+  <span class="kw">const</span> fd = <span class="kw">new</span> <span class="fn">FormData</span>();
+  fd.<span class="fn">append</span>(<span class="str">'action'</span>, <span class="str">'delete_post'</span>);
+  fd.<span class="fn">append</span>(<span class="str">'nonce'</span>,  myVars.nonce);
+  <span class="kw">await</span> <span class="fn">fetch</span>(myVars.ajax_url, { method: <span class="str">'POST'</span>, body: fd });
+  <span class="fn">RoyalAlert</span>.<span class="fn">close</span>();
+  <span class="fn">RoyalAlert</span>.<span class="fn">toast</span>({ type: <span class="str">'success'</span>, message: <span class="str">'Post deleted!'</span> });
+}</div>
+</section>
+
+<!-- ══ DOWNLOAD ════════════════════════════════════════════ -->
+<section class="section" id="download" style="padding-bottom: 6rem; text-align: center;">
+    <div class="section-label">Source</div>
+    <h2 class="section-title">Download & Use</h2>
+    <p class="section-desc" style="margin: 0 auto 2.5rem;">You can download the compiled assets directly from GitHub or use the jsDelivr CDN.</p>
+    
+    <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+        <a href="https://github.com/Royal-Technologies/RoyalAlert/releases/latest" target="_blank" class="btn-hero-primary" style="text-decoration: none; padding: .8rem 2rem;">
+            ⬇️ Download Release (.zip)
+        </a>
+        <a href="https://github.com/Royal-Technologies/RoyalAlert" target="_blank" class="btn-hero-ghost" style="color: var(--c-text); border-color: var(--c-border); background: var(--c-card);">
+            View on GitHub
+        </a>
+    </div>
+</section>
+
+<!-- ══ FOOTER ══════════════════════════════════════════════ -->
+<footer class="footer">
+    <p style="margin-bottom:.5rem">
+        <a href="https://github.com/Royal-Technologies/RoyalAlert" target="_blank" style="color:#818cf8;font-weight:700">⭐ Royal-Technologies/RoyalAlert</a>
+    </p>
+    <p>Made with ♥ by <a href="https://www.royaltechbd.com/" target="_blank"><strong>Royal Technologies</strong></a> &nbsp;·&nbsp; MIT License</p>
+</footer>
+
+<!-- RoyalAlert JS -->
+<script type="module" src="../src/index.js"></script>
+<script type="module" src="demo.js"></script>
+
+<script>
+/* ── Install tabs ─────────────────────────────────────────── */
+function showTab(id) {
+    document.querySelectorAll('.install-code').forEach(el => el.classList.remove('active'));
+    document.querySelectorAll('.itab').forEach(el => el.classList.remove('active'));
+    document.getElementById('tab-' + id).classList.add('active');
+    event.target.classList.add('active');
+}
+
+/* ── Copy code ────────────────────────────────────────────── */
+const copyMap = {
+    cdn: `<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/royal-alert/dist/royal-alert.min.css">\n<script src="https://cdn.jsdelivr.net/npm/royal-alert/dist/royal-alert.min.js"><\/script>`,
+    npm: 'npm install royal-alert',
+    esm: `import RoyalAlert from 'royal-alert';\nimport 'royal-alert/dist/royal-alert.css';`
+};
+function copyCode(id) {
+    navigator.clipboard.writeText(copyMap[id]).then(() => {
+        const btn = event.target;
+        btn.textContent = 'Copied!';
+        setTimeout(() => btn.textContent = 'Copy', 1500);
+    });
+}
+
+/* ── Code block copy ──────────────────────────────────────── */
+document.querySelectorAll('.code').forEach(block => {
+    const btn = document.createElement('button');
+    btn.className = 'code-copy';
+    btn.textContent = 'Copy';
+    btn.onclick = () => {
+        const text = block.innerText.replace('Copy','').trim();
+        navigator.clipboard.writeText(text).then(() => {
+            btn.textContent = 'Copied!';
+            setTimeout(() => btn.textContent = 'Copy', 1500);
+        });
+    };
+    block.appendChild(btn);
+});
+
+/* ── Theme toggle (page) ──────────────────────────────────── */
+let pageDark = false;
+document.getElementById('themeToggle').addEventListener('click', () => {
+    pageDark = !pageDark;
+    document.body.classList.toggle('dark', pageDark);
+    document.getElementById('themeToggle').textContent = pageDark ? '☀️ Light' : '🌙 Dark';
+});
+
+/* ── Theme demo helper ────────────────────────────────────── */
+function setThemeDemo(t) {
+    document.querySelectorAll('.theme-card').forEach(c => c.classList.remove('selected'));
+    document.getElementById('tc-' + t).classList.add('selected');
+}
+</script>
+</body>
+</html>

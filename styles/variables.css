@@ -1,0 +1,60 @@
+/* ============================================================
+   RoyalAlert — CSS Variable System
+   Developed by Royal Technologies (www.royaltechbd.com)
+   All theme customization happens here.
+   ============================================================ */
+
+:root {
+    /* ── Brand Colors ─────────────────────────────────────── */
+    --ra-primary:        #6366f1;
+    --ra-primary-dark:   #4f46e5;
+    --ra-primary-light:  #a5b4fc;
+
+    --ra-success:        #10b981;
+    --ra-success-light:  #d1fae5;
+    --ra-error:          #ef4444;
+    --ra-error-light:    #fee2e2;
+    --ra-warning:        #f59e0b;
+    --ra-warning-light:  #fef3c7;
+    --ra-info:           #0ea5e9;
+    --ra-info-light:     #e0f2fe;
+    --ra-question:       #8b5cf6;
+    --ra-question-light: #ede9fe;
+
+    /* ── Surface ──────────────────────────────────────────── */
+    --ra-bg:             #ffffff;
+    --ra-bg-subtle:      #f8fafc;
+    --ra-overlay:        rgba(15, 23, 42, 0.45);
+    --ra-border:         #e2e8f0;
+    --ra-input-bg:       #f8fafc;
+    --ra-input-border:   #cbd5e1;
+
+    /* ── Typography ───────────────────────────────────────── */
+    --ra-font:           system-ui, -apple-system, 'Segoe UI', sans-serif;
+    --ra-text:           #0f172a;
+    --ra-text-muted:     #64748b;
+    --ra-text-light:     #94a3b8;
+
+    /* ── Shape ────────────────────────────────────────────── */
+    --ra-radius:         24px;
+    --ra-radius-sm:      14px;
+    --ra-radius-btn:     9999px;
+    --ra-radius-input:   12px;
+
+    /* ── Elevation ────────────────────────────────────────── */
+    --ra-shadow:         0 32px 64px -12px rgba(0,0,0,.18),
+                         0 0 0 1px rgba(0,0,0,.04);
+    --ra-shadow-toast:   0 8px 24px -4px rgba(0,0,0,.12),
+                         0 0 0 1px rgba(0,0,0,.04);
+
+    /* ── Motion ───────────────────────────────────────────── */
+    --ra-ease:           cubic-bezier(.34,1.56,.64,1);
+    --ra-ease-out:       cubic-bezier(0,0,.2,1);
+    --ra-duration:       .32s;
+    --ra-duration-fast:  .18s;
+
+    /* ── Layout ───────────────────────────────────────────── */
+    --ra-p:              2rem;
+    --ra-z-modal:        9000;
+    --ra-z-toast:        9500;
+}

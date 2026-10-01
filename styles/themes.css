@@ -1,0 +1,42 @@
+/* ============================================================
+   RoyalAlert — Dark & Auto Themes
+   ============================================================ */
+
+[data-theme="dark"],
+[data-theme="dark"] .royal-alert-modal,
+[data-theme="dark"] .royal-alert-toast {
+    --ra-bg:           #1e293b;
+    --ra-bg-subtle:    #0f172a;
+    --ra-text:         #f1f5f9;
+    --ra-text-muted:   #94a3b8;
+    --ra-text-light:   #64748b;
+    --ra-border:       #334155;
+    --ra-input-bg:     #0f172a;
+    --ra-input-border: #475569;
+    --ra-overlay:      rgba(0,0,0,.78);
+    --ra-shadow:       0 32px 64px -12px rgba(0,0,0,.6),
+                       0 0 0 1px rgba(255,255,255,.05);
+    --ra-shadow-toast: 0 8px 24px -4px rgba(0,0,0,.5),
+                       0 0 0 1px rgba(255,255,255,.04);
+}
+
+/* Auto — honour OS dark mode preference */
+@media (prefers-color-scheme: dark) {
+    [data-theme="auto"],
+    [data-theme="auto"] .royal-alert-modal,
+    [data-theme="auto"] .royal-alert-toast {
+        --ra-bg:           #1e293b;
+        --ra-bg-subtle:    #0f172a;
+        --ra-text:         #f1f5f9;
+        --ra-text-muted:   #94a3b8;
+        --ra-text-light:   #64748b;
+        --ra-border:       #334155;
+        --ra-input-bg:     #0f172a;
+        --ra-input-border: #475569;
+        --ra-overlay:      rgba(0,0,0,.78);
+        --ra-shadow:       0 32px 64px -12px rgba(0,0,0,.6),
+                           0 0 0 1px rgba(255,255,255,.05);
+        --ra-shadow-toast: 0 8px 24px -4px rgba(0,0,0,.5),
+                           0 0 0 1px rgba(255,255,255,.04);
+    }
+}

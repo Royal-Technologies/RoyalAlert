@@ -1,0 +1,255 @@
+/* ============================================================
+   RoyalAlert — Modal / Dialog
+   ============================================================ */
+
+.royal-alert-modal {
+    position: relative;
+    background: var(--ra-bg);
+    color: var(--ra-text);
+    font-family: var(--ra-font);
+    border-radius: var(--ra-radius);
+    box-shadow: var(--ra-shadow);
+    width: 30rem;
+    max-width: 100%;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+/* ── Header ───────────────────────────────────────────────── */
+.royal-alert-header {
+    padding: var(--ra-p) var(--ra-p) 0;
+    text-align: center;
+    position: relative;
+}
+
+/* Icon circle */
+.royal-alert-icon {
+    width: 5.5rem;
+    height: 5.5rem;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.25rem;
+    position: relative;
+}
+
+/* Soft background ring */
+.royal-alert-icon::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    opacity: .14;
+}
+.royal-alert-icon-success-wrap::before  { background: var(--ra-success); }
+.royal-alert-icon-error-wrap::before    { background: var(--ra-error); }
+.royal-alert-icon-warning-wrap::before  { background: var(--ra-warning); }
+.royal-alert-icon-info-wrap::before     { background: var(--ra-info); }
+.royal-alert-icon-question-wrap::before { background: var(--ra-question); }
+.royal-alert-icon-loading-wrap::before  { background: var(--ra-primary); }
+
+/* SVG icon */
+.royal-alert-icon-svg {
+    width: 2.75rem;
+    height: 2.75rem;
+    stroke-width: 2.25;
+    position: relative;
+    z-index: 1;
+    fill: none;
+}
+.royal-alert-icon-success-wrap  .royal-alert-icon-svg { stroke: var(--ra-success); }
+.royal-alert-icon-error-wrap    .royal-alert-icon-svg { stroke: var(--ra-error); }
+.royal-alert-icon-warning-wrap  .royal-alert-icon-svg { stroke: var(--ra-warning); }
+.royal-alert-icon-info-wrap     .royal-alert-icon-svg { stroke: var(--ra-info); }
+.royal-alert-icon-question-wrap .royal-alert-icon-svg { stroke: var(--ra-question); }
+.royal-alert-icon-loading-wrap  .royal-alert-icon-svg {
+    stroke: var(--ra-primary);
+    animation: ra-spin 1s linear infinite;
+}
+
+/* Title */
+.royal-alert-title {
+    margin: 0 0 .25rem;
+    font-size: 1.625rem;
+    font-weight: 700;
+    letter-spacing: -.025em;
+    line-height: 1.25;
+    color: var(--ra-text);
+}
+
+/* Close ×  button */
+.royal-alert-close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    width: 2.25rem;
+    height: 2.25rem;
+    border: none;
+    border-radius: 50%;
+    background: var(--ra-bg-subtle);
+    color: var(--ra-text-muted);
+    font-size: 1.4rem;
+    line-height: 1;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background var(--ra-duration-fast) var(--ra-ease-out),
+                transform   var(--ra-duration-fast) var(--ra-ease-out);
+}
+.royal-alert-close:hover {
+    background: var(--ra-border);
+    transform: rotate(90deg);
+}
+
+/* Custom image */
+.royal-alert-image {
+    max-width: 100%;
+    border-radius: var(--ra-radius-sm);
+    margin: 1rem auto 0;
+    display: block;
+    object-fit: cover;
+}
+
+/* ── Body ─────────────────────────────────────────────────── */
+.royal-alert-body {
+    padding: 1rem var(--ra-p) var(--ra-p);
+    text-align: center;
+}
+
+.royal-alert-message {
+    margin: 0;
+    font-size: 1.05rem;
+    line-height: 1.7;
+    color: var(--ra-text-muted);
+}
+
+.royal-alert-html {
+    text-align: left;
+    font-size: 1rem;
+    line-height: 1.6;
+    color: var(--ra-text-muted);
+}
+
+/* ── Input ────────────────────────────────────────────────── */
+.royal-alert-input-wrap {
+    margin-top: 1.25rem;
+    text-align: left;
+}
+
+.royal-alert-input {
+    width: 100%;
+    box-sizing: border-box;
+    padding: .8rem 1rem;
+    border: 1.5px solid var(--ra-input-border);
+    border-radius: var(--ra-radius-input);
+    background: var(--ra-input-bg);
+    color: var(--ra-text);
+    font-size: 1rem;
+    font-family: var(--ra-font);
+    transition: border-color var(--ra-duration-fast) var(--ra-ease-out),
+                box-shadow   var(--ra-duration-fast) var(--ra-ease-out);
+    outline: none;
+}
+.royal-alert-input:focus {
+    border-color: var(--ra-primary);
+    box-shadow: 0 0 0 4px rgba(99,102,241,.15);
+}
+.royal-alert-input.royal-alert-input-error {
+    border-color: var(--ra-error);
+    box-shadow: 0 0 0 4px rgba(239,68,68,.12);
+    animation: ra-shake .4s 1;
+}
+textarea.royal-alert-input {
+    resize: vertical;
+    min-height: 110px;
+}
+
+/* Validation error text */
+.royal-alert-validation-message {
+    margin-top: .5rem;
+    font-size: .875rem;
+    color: var(--ra-error);
+    font-weight: 500;
+    display: none;
+}
+
+/* ── Determinate progress ─────────────────────────────────── */
+.royal-alert-progress-wrap {
+    width: 100%;
+    height: 6px;
+    background: var(--ra-border);
+    border-radius: 3px;
+    margin-top: 1.25rem;
+    overflow: hidden;
+}
+.royal-alert-progress-bar {
+    height: 100%;
+    background: linear-gradient(90deg, var(--ra-primary), var(--ra-primary-dark));
+    width: 0%;
+    border-radius: 3px;
+    transition: width .35s var(--ra-ease-out);
+}
+
+/* ── Auto-close timer bar (sits flush at bottom of modal) ─── */
+.royal-alert-timer-wrap {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: rgba(0,0,0,.06);
+    overflow: hidden;
+    border-radius: 0 0 var(--ra-radius) var(--ra-radius);
+}
+.royal-alert-timer-bar {
+    height: 100%;
+    background: linear-gradient(90deg, var(--ra-primary), var(--ra-primary-dark));
+    width: 100%;
+    transform-origin: left;
+    animation: ra-timer-shrink linear forwards;
+}
+
+/* ── Actions / Buttons row ────────────────────────────────── */
+.royal-alert-actions {
+    padding: 0 var(--ra-p) var(--ra-p);
+    display: flex;
+    justify-content: center;
+    gap: .75rem;
+    flex-wrap: wrap;
+}
+
+/* ── Footer ───────────────────────────────────────────────── */
+.royal-alert-footer {
+    padding: 1rem var(--ra-p);
+    border-top: 1px solid var(--ra-border);
+    text-align: center;
+    font-size: .9rem;
+    color: var(--ra-text-muted);
+    background: var(--ra-bg-subtle);
+}
+.royal-alert-footer a {
+    color: var(--ra-primary);
+    text-decoration: none;
+}
+.royal-alert-footer a:hover {
+    text-decoration: underline;
+}
+
+/* ── Responsive ───────────────────────────────────────────── */
+@media (max-width: 480px) {
+    .royal-alert-modal {
+        width: 100% !important;
+        margin: 0;
+        border-radius: var(--ra-radius-sm);
+    }
+    .royal-alert-actions {
+        flex-direction: column;
+    }
+    .royal-alert-btn {
+        width: 100%;
+        justify-content: center;
+    }
+}

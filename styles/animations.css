@@ -1,0 +1,115 @@
+/* ============================================================
+   RoyalAlert — Animations & Keyframes
+   ============================================================ */
+
+/* Modal entrance transition */
+.royal-alert-modal {
+    transition: transform var(--ra-duration) var(--ra-ease),
+                opacity  var(--ra-duration-fast) var(--ra-ease-out);
+}
+
+/* ── scale (default) ─────────────────────────────────────── */
+.royal-alert-anim-scale {
+    transform: scale(.82) translateY(24px);
+    opacity: 0;
+}
+.royal-alert-anim-scale.royal-alert-show {
+    transform: scale(1) translateY(0);
+    opacity: 1;
+}
+.royal-alert-anim-scale.royal-alert-hide {
+    transform: scale(.94) translateY(-12px);
+    opacity: 0;
+    transition-duration: var(--ra-duration-fast) !important;
+}
+
+/* ── fade ────────────────────────────────────────────────── */
+.royal-alert-anim-fade {
+    opacity: 0;
+}
+.royal-alert-anim-fade.royal-alert-show {
+    opacity: 1;
+}
+.royal-alert-anim-fade.royal-alert-hide {
+    opacity: 0;
+    transition-duration: var(--ra-duration-fast) !important;
+}
+
+/* ── slide ───────────────────────────────────────────────── */
+.royal-alert-anim-slide {
+    transform: translateY(-40px);
+    opacity: 0;
+}
+.royal-alert-anim-slide.royal-alert-show {
+    transform: translateY(0);
+    opacity: 1;
+}
+.royal-alert-anim-slide.royal-alert-hide {
+    transform: translateY(-20px);
+    opacity: 0;
+    transition-duration: var(--ra-duration-fast) !important;
+}
+
+/* ── flip ────────────────────────────────────────────────── */
+.royal-alert-anim-flip {
+    transform: perspective(700px) rotateX(12deg) scale(.94);
+    opacity: 0;
+}
+.royal-alert-anim-flip.royal-alert-show {
+    transform: perspective(700px) rotateX(0) scale(1);
+    opacity: 1;
+}
+.royal-alert-anim-flip.royal-alert-hide {
+    transform: perspective(700px) rotateX(-8deg) scale(.96);
+    opacity: 0;
+    transition-duration: var(--ra-duration-fast) !important;
+}
+
+/* ── Keyframes ───────────────────────────────────────────── */
+@keyframes ra-spin {
+    to { transform: rotate(360deg); }
+}
+
+@keyframes ra-shake {
+    0%,100% { transform: translateX(0); }
+    20%     { transform: translateX(-6px); }
+    40%     { transform: translateX( 6px); }
+    60%     { transform: translateX(-4px); }
+    80%     { transform: translateX( 4px); }
+}
+
+@keyframes ra-pulse {
+    0%,100% { box-shadow: 0 0 0 0 rgba(99,102,241,.4); }
+    60%     { box-shadow: 0 0 0 10px rgba(99,102,241,0); }
+}
+
+@keyframes ra-timer-shrink {
+    from { transform: scaleX(1); }
+    to   { transform: scaleX(0); }
+}
+
+/* ── Reduced-motion override ─────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+    .royal-alert-overlay,
+    .royal-alert-modal,
+    .royal-alert-toast,
+    .royal-alert-btn,
+    .royal-alert-timer-bar,
+    .royal-alert-toast-progress-bar {
+        transition: none !important;
+        animation: none !important;
+    }
+    .royal-alert-anim-scale,
+    .royal-alert-anim-fade,
+    .royal-alert-anim-slide,
+    .royal-alert-anim-flip {
+        transform: none !important;
+        opacity: 0;
+    }
+    .royal-alert-anim-scale.royal-alert-show,
+    .royal-alert-anim-fade.royal-alert-show,
+    .royal-alert-anim-slide.royal-alert-show,
+    .royal-alert-anim-flip.royal-alert-show {
+        opacity: 1;
+    }
+}

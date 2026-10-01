@@ -1,0 +1,46 @@
+/* ============================================================
+   RoyalAlert — Base & Overlay
+   Developed by Royal Technologies (www.royaltechbd.com)
+   ============================================================ */
+
+/* Body scroll lock when a modal is open */
+body[data-ra-locked] {
+    overflow: hidden !important;
+    padding-right: var(--ra-scrollbar-w, 0px) !important;
+}
+
+/* ── Overlay ──────────────────────────────────────────────── */
+.royal-alert-overlay {
+    position: fixed;
+    inset: 0;
+    background: var(--ra-overlay);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    z-index: var(--ra-z-modal);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    box-sizing: border-box;
+
+    /* Hidden by default — show/hide managed via JS class */
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity var(--ra-duration-fast) var(--ra-ease-out);
+}
+
+.royal-alert-overlay.royal-alert-show {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.royal-alert-overlay.royal-alert-hide {
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* Accessible dialog wrapper — no scroll on wrapper itself */
+.royal-alert-container {
+    outline: none;
+    max-width: 100%;
+}

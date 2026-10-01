@@ -1,0 +1,89 @@
+/* ============================================================
+   RoyalAlert — Buttons
+   ============================================================ */
+
+.royal-alert-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: .5rem;
+    padding: .75rem 1.75rem;
+    font-size: 1rem;
+    font-weight: 600;
+    font-family: var(--ra-font);
+    border: none;
+    border-radius: var(--ra-radius-btn);
+    cursor: pointer;
+    white-space: nowrap;
+    transition: transform     var(--ra-duration-fast) var(--ra-ease),
+                box-shadow    var(--ra-duration-fast) var(--ra-ease-out),
+                filter        var(--ra-duration-fast) var(--ra-ease-out),
+                opacity       var(--ra-duration-fast) var(--ra-ease-out),
+                background    var(--ra-duration-fast) var(--ra-ease-out);
+}
+
+.royal-alert-btn:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px -4px rgba(0,0,0,.2);
+}
+
+.royal-alert-btn:active:not(:disabled) {
+    transform: translateY(0);
+    box-shadow: none;
+}
+
+.royal-alert-btn:focus-visible {
+    outline: 3px solid var(--ra-primary-light);
+    outline-offset: 3px;
+}
+
+.royal-alert-btn:disabled,
+.royal-alert-btn-loading {
+    opacity: .6;
+    cursor: not-allowed;
+    transform: none !important;
+    box-shadow: none !important;
+}
+
+/* ── Variants ─────────────────────────────────────────────── */
+.royal-alert-btn-confirm,
+.royal-alert-btn-primary {
+    background: linear-gradient(135deg, var(--ra-primary), var(--ra-primary-dark));
+    color: #fff;
+    box-shadow: 0 4px 14px -4px rgba(99,102,241,.5);
+}
+
+.royal-alert-btn-cancel,
+.royal-alert-btn-secondary {
+    background: var(--ra-bg-subtle);
+    color: var(--ra-text-muted);
+    border: 1.5px solid var(--ra-border);
+}
+.royal-alert-btn-cancel:hover:not(:disabled),
+.royal-alert-btn-secondary:hover:not(:disabled) {
+    background: var(--ra-border);
+    box-shadow: 0 4px 12px -4px rgba(0,0,0,.08);
+}
+
+.royal-alert-btn-danger {
+    background: linear-gradient(135deg, var(--ra-error), #c53030);
+    color: #fff;
+    box-shadow: 0 4px 14px -4px rgba(239,68,68,.45);
+}
+
+.royal-alert-btn-success {
+    background: linear-gradient(135deg, var(--ra-success), #0d9488);
+    color: #fff;
+    box-shadow: 0 4px 14px -4px rgba(16,185,129,.45);
+}
+
+.royal-alert-btn-warning {
+    background: linear-gradient(135deg, var(--ra-warning), #d97706);
+    color: #fff;
+    box-shadow: 0 4px 14px -4px rgba(245,158,11,.4);
+}
+
+.royal-alert-btn-info {
+    background: linear-gradient(135deg, var(--ra-info), #0284c7);
+    color: #fff;
+    box-shadow: 0 4px 14px -4px rgba(14,165,233,.4);
+}
