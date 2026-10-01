@@ -1,0 +1,85 @@
+# RoyalAlert - Complete API Context
+
+RoyalAlert is a lightweight, dependency-free JavaScript alert, dialog, and toast notification library by Royal Technologies.
+
+## Installation
+
+**CDN:**
+```html
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/royal-alert/dist/royal-alert.css">
+<script src="https://cdn.jsdelivr.net/npm/royal-alert/dist/royal-alert.min.js"></script>
+```
+
+**npm:**
+```bash
+npm install royal-alert
+```
+
+## API Reference
+
+### 1. Basic Alert (`RoyalAlert.fire`)
+```javascript
+RoyalAlert.fire({
+  title: 'Success!',
+  text: 'Operation completed.',
+  icon: 'success', // success, error, warning, info, question
+  theme: 'auto', // light, dark, auto
+  animation: 'scale' // scale, fade, slide, flip
+});
+```
+
+### 2. Toast Notification (`RoyalAlert.toast`)
+```javascript
+RoyalAlert.toast({
+  title: 'Signed in successfully',
+  icon: 'success',
+  position: 'bottom-left' // top-left, top-right, bottom-left, bottom-right, etc.
+});
+```
+
+### 3. Confirmation Dialog (`RoyalAlert.confirm`)
+```javascript
+const result = await RoyalAlert.confirm({
+  title: 'Are you sure?',
+  text: 'You won\'t be able to revert this!',
+  icon: 'warning',
+  confirmButtonText: 'Yes, delete it',
+  cancelButtonText: 'Cancel'
+});
+
+if (result.confirmed) {
+  // Action confirmed
+}
+```
+
+### 4. Input Prompt (`RoyalAlert.prompt`)
+```javascript
+const result = await RoyalAlert.prompt({
+  title: 'Enter your name',
+  inputPlaceholder: 'John Doe'
+});
+
+if (result.confirmed) {
+  console.log('User entered:', result.value);
+}
+```
+
+### 5. Async Operations (`RoyalAlert.async`)
+```javascript
+RoyalAlert.async({
+  title: 'Processing...',
+  text: 'Please wait while we process your request.',
+  promise: fetch('/api/data'), // Any Promise
+  successMessage: 'Data loaded successfully!',
+  errorMessage: 'Failed to load data.'
+});
+```
+
+### 6. Close Modal (`RoyalAlert.close`)
+```javascript
+RoyalAlert.close();
+```
+
+## Developer
+Developed and maintained by Royal Technologies.
+Official Documentation: https://royal-technologies.github.io/RoyalAlert/

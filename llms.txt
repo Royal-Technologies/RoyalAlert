@@ -1,0 +1,26 @@
+# RoyalAlert
+
+> RoyalAlert is a lightweight, dependency-free Vanilla JavaScript alert, dialog, and toast notification library developed by Royal Technologies.
+
+RoyalAlert provides modern user interaction components for websites and web applications without requiring jQuery, Bootstrap, or other external JavaScript dependencies.
+
+## Project Resources
+- [GitHub Repository](https://github.com/Royal-Technologies/RoyalAlert): Source code, issues, and releases.
+- [Documentation & Demo](https://royal-technologies.github.io/RoyalAlert/): Official documentation and interactive examples.
+- [npm package](https://www.npmjs.com/package/royal-alert): Installation package.
+
+## API Overview
+- **Basic Alerts**: Success, error, warning, info, and question alerts via `RoyalAlert.fire()`.
+- **Confirmation**: Confirmation dialogs via `RoyalAlert.confirm()`.
+- **Toast**: Toast notification API via `RoyalAlert.toast()`.
+- **Prompt**: User input dialogs via `RoyalAlert.prompt()`.
+- **Async**: Async operation handling and loading dialogs via `RoyalAlert.async()`.
+- **Themes**: Light, dark, and automatic themes.
+- **Animations**: Scale, fade, slide, flip.
+
+## Installation
+- CDN: `https://cdn.jsdelivr.net/npm/royal-alert/dist/royal-alert.min.js`
+- npm: `npm install royal-alert`
+
+## Organization
+- [Royal Technologies](https://www.royaltechbd.com): Developer and maintainer of RoyalAlert.
