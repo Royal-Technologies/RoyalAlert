@@ -1,7 +1,7 @@
 {
   "name": "royal-alert",
   "version": "1.0.2",
-  "description": "Lightweight, modern, zero-dependency JavaScript alert, toast, modal and confirmation library.",
+  "description": "A lightweight, zero-dependency alternative to SweetAlert2 for modern JavaScript alerts, toasts, and modals.",
   "main": "dist/royal-alert.umd.js",
   "module": "dist/royal-alert.mjs",
   "types": "types/index.d.ts",
