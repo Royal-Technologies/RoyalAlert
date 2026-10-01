@@ -53,7 +53,14 @@ A production-ready JavaScript library for alerts, toasts, confirmations, prompts
 - **WordPress-Safe** — Isolated CSS prefix, zero conflicts with WP Admin or themes.
 
 ### Size Comparison
-![RoyalAlert vs SweetAlert2 Size Comparison](assets/size-comparison.jpg)
+
+| Feature | 👑 RoyalAlert | 🍬 SweetAlert2 |
+|---|---|---|
+| **Total Gzipped Size** | **~ 8.8 kB** | ~ 21.0 kB |
+| **Theme Support** | Built-in (Auto/Dark/Light) | Separate CSS file required |
+| **Customisation** | CSS Variables (`--ra-*`) | SCSS / External CSS |
+| **Toast & Async** | Built-in | Built-in |
+| **Dependencies** | Zero | Zero |
 
 ---
 
