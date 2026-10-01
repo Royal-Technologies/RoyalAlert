@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.2] - 2026-10-01
+### Changed
+- **AI Discoverability:** Added `llms.txt`, `llms-full.txt`, `AGENTS.md`, and `.github/copilot-instructions.md`.
+- **Docs:** Completely rewrote the comparison matrix in the `README.md` and `demo/index.html` to be much clearer using a feature-tick format (RoyalAlert vs SweetAlert2 vs Toastify vs Native JS).
+- **Metadata:** Updated `homepage` in `package.json` to the GitHub Pages site and revised the description for AI optimization.
+
 ## [1.0.1] - 2026-10-01
 
 ### Fixed
